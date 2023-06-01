@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./images/quiz-application-low-resolution-color-logo.png" width="100%" height="100%" type="image/x-icon">
+</head>
+<style>
+  body {
+      margin: 10px;
+      font-family: Arial, sans-serif;
+      background-image: url("./images/login background.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+  }
+  form {
+      width: 500px;
+      margin: 300px auto;
+      padding: 20px;
+      background-color: #ff694e;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+  h1 {
+      text-align: center;
+  }
+  input[type="text"],
+  input[type="password"] {
+      width: 82%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+  button {
+      width: 85%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+<body style="margin: 10px;">
+    <center><form style="margin: 300px;">
+   <h1>Signup page</h1>
+   E-mail :<input type="text" id="semail"><br><br>
+   password :<input type="password" id="spass"><br>
+<button type="button" class="btn btn-primary" id="sbtn">Signup</button>
+<legend>
+  <center>OR</center>
+</legend>
+<div class="signin">
+  Already have an account? <a style="text-decoration: none;color: blue;" id="signin" href="./signin.html">Signin</a>
+</div>
+</form></center>
+<script type="module" >
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+import { getAuth,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDT4wh_QUmCnhHQfDCK4LZUBgU_SL-Hbaw",
+  authDomain: "login-page-8649b.firebaseapp.com",
+  projectId: "login-page-8649b",
+  storageBucket: "login-page-8649b.appspot.com",
+  messagingSenderId: "913936582659",
+  appId: "1:913936582659:web:6a946fafc0448df84ea636",
+  measurementId: "G-3YXHX84XKM"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+let btn=document.getElementById("sbtn");
+btn.addEventListener("click",() => {
+  let  email = document.querySelector("#semail").value;
+  let password = document.querySelector('#spass').value;  
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    const user = userCredential.user;
+      console.log("Email",user.email)
+      alert('Data Successfully Inserted!')
+      location.href=("./signin.html")
+    })
+    .catch((error) => {
+    const errorCode=error.code;
+    const errorMessage=error.message;
+    console.log(errorCode,errorMessage)
+    alert("An Error Occored While Signup!")
+    });
+  });
+</script>
+</body>
+
+</html>
